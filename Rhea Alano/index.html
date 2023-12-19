@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #game-container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        #result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #guess-input {
+            padding: 8px;
+            margin-top: 10px;
+        }
+
+        #submit-button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <h1>Number Guessing Game</h1>
+    <p>Try to guess the number between 1 and 10!</p>
+
+    <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="10">
+    <button id="submit-button" onclick="checkGuess()">Submit Guess</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function checkGuess() {
+        var secretNumber = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+        var userGuess = parseInt(document.getElementById("guess-input").value);
+
+        var resultContainer = document.getElementById("result");
+
+        if (isNaN(userGuess) || userGuess < 1 || userGuess > 10) {
+            resultContainer.innerHTML = "Please enter a valid number between 1 and 10.";
+        } else if (userGuess === secretNumber) {
+            resultContainer.innerHTML = "Congratulations! You guessed the correct number!";
+        } else {
+            resultContainer.innerHTML = "Sorry, the correct number was " + secretNumber + ". Try again!";
+        }
+    }
+</script>
+
+</body>
+</html>
