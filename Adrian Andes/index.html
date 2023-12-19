@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Word Puzzle</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style> 
+body{
+  background: linear-gradient(aqua, lightblue, pink);
+  padding: 100px;
+  height: 100px;
+  width: 150px;
+}
+.puzzle {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.word-container {
+  border: 2px solid #333;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: inline-block;
+  background-color: aqua;
+}
+
+#puzzle-word {
+  font-size: 36px;
+}
+
+#letter-container {
+  display: flex;
+  justify-content: center;
+}
+
+.letter {
+  font-size: 24px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+</style>
+<body>
+  <div class="puzzle">
+    <div class="word-container">
+      <div id="puzzle-word"></div>
+    </div>
+    <div id="letter-container"></div>
+  </div>
+
+  
+
+
+  <script> 
+  const words = ["PUZZLE", "WORD", "JAVASCRIPT", "SYSTEM", "DATASTRUCTURE", "ALGORITHM", "PROGRAMMING", "LANGUAGE", "CSHARP", "OBJECT","ORIENTED"];
+let currentWordIndex = 0;
+let word = words[currentWordIndex];
+let shuffledWord = shuffleWord(word);
+
+const puzzleWord = document.getElementById('puzzle-word');
+const letterContainer = document.getElementById('letter-container');
+
+// Display shuffled word
+puzzleWord.textContent = shuffledWord;
+
+// Create letter buttons
+for (let i = 0; i < word.length; i++) {
+  const letterBtn = document.createElement('div');
+  letterBtn.textContent = shuffledWord[i];
+  letterBtn.classList.add('letter');
+  letterBtn.addEventListener('click', () => handleLetterClick(i));
+  letterContainer.appendChild(letterBtn);
+}
+
+function shuffleWord(word) {
+  return word.split('').sort(() => Math.random() - 0.5).join('');
+}
+
+let currentAttempt = '';
+function handleLetterClick(index) {
+  currentAttempt += shuffledWord[index];
+  puzzleWord.textContent = currentAttempt;
+
+  if (currentAttempt === word) {
+    alert('Congratulations! You solved the puzzle!');
+    currentWordIndex = (currentWordIndex + 1) % words.length;
+    word = words[currentWordIndex];
+    shuffledWord = shuffleWord(word);
+    resetGame();
+  }
+}
+
+function resetGame() {
+  currentAttempt = '';
+  puzzleWord.textContent = shuffledWord;
+
+  const letters = document.querySelectorAll('.letter');
+  letters.forEach(letter => letter.parentNode.removeChild(letter));
+  
+  for (let i = 0; i < word.length; i++) {
+    const letterBtn = document.createElement('div');
+    letterBtn.textContent = shuffledWord[i];
+    letterBtn.classList.add('letter');
+    letterBtn.addEventListener('click', () => handleLetterClick(i));
+    letterContainer.appendChild(letterBtn);
+  }
+}
+
+</script>
+</body>
+</html>
