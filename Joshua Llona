@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title> Data Structure and Algorithm Hands On </title>
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to bottom right, #4CAF50, #2196F3);
+    color: #fff; 
+}
+
+.container {
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #FF9800; 
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease; 
+}
+
+button:hover {
+    background-color: #FFC107; 
+}
+</style>
+</head>
+<body>
+    <div class="container">
+       <center><h1> Data Structure and Algorithm </h1></center>
+        <div>
+            <label for="dataInput">Enter Text:</label>
+            <input type="text" id="dataInput" placeholder="Type something...">
+        </div>
+        <div>
+            <label for="structureType">Choose Data Structure:</label>
+            <select id="structureType">
+                <option value="stack">Stack</option>
+                <option value="queue">Queue</option>
+            </select>
+        </div>
+        <button onclick="insertData()">Insert Data</button>
+        <button onclick="reverseArray()">Reverse Array</button>
+        <p>Original Array: <span id="originalArray"></span></p>
+        <p>Reversed Array: <span id="reversedArray"></span></p>
+        <p>Text Content: <span id="structureContent"></span></p>
+    </div>
+<script>
+let dataArray = [];
+let structureType = "stack";
+
+function insertData() {
+    const dataInput = document.getElementById('dataInput');
+    
+    if (dataInput.value.trim() === "") {
+        alert("Please enter a valid text.");
+        return;
+    }
+
+    const newData = dataInput.value;
+    
+    if (structureType === "stack") {
+      
+        dataArray.push(newData);
+    } else if (structureType === "queue") {
+        
+        dataArray.unshift(newData);
+    }
+
+   
+    displayStructureContent();
+
+    
+    dataInput.value = "";
+}
+
+function reverseArray() {
+    document.getElementById('originalArray').innerText = dataArray.join(', ');
+    dataArray.reverse();
+    document.getElementById('reversedArray').innerText = dataArray.join(', ');
+    displayStructureContent();
+}
+
+function displayStructureContent() {
+    document.getElementById('structureContent').innerText = dataArray.join(', ');
+}
+
+
+document.getElementById('structureType').addEventListener('change', function() {
+    structureType = this.value;
+    displayStructureContent(); 
+});
+
+</script>
+</body>
+</html>
