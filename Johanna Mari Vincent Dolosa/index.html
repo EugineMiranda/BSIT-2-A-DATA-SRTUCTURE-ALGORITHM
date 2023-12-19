@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url(image.jpg);
+        }
+
+        #puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(3, 80px);
+            grid-gap: 5px;
+        }
+
+        .puzzle-tile {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background-color: pink;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="puzzle-container"></div>
+    <script>
+        const puzzleContainer = document.getElementById("puzzle-container");
+        const numbers = [1, 2, 3, 4, 5, 6, 7, 8, ""];
+        const emptyIndex = 8;
+
+        function createPuzzle() {
+            puzzleContainer.innerHTML = "";
+            numbers.forEach((number, index) => {
+                const tile = document.createElement("div");
+                tile.classList.add("puzzle-tile");
+                tile.textContent = number === "" ? "" : number;
+                tile.addEventListener("click", () => handleTileClick(index));
+                puzzleContainer.appendChild(tile);
+            });
+        }
+
+        function handleTileClick(index) {
+            if (isMoveValid(index)) {
+                swapTiles(index, emptyIndex);
+                updatePuzzle();
+                if (isPuzzleSolved()) {
+                    alert("Congratulations! You solved the puzzle!");
+                    shufflePuzzle();
+                    updatePuzzle();
+                }
+            }
+        }
+
+        function isMoveValid(index) {
+            const rowDiff = Math.abs(Math.floor(index / 3) - Math.floor(emptyIndex / 3));
+            const colDiff = Math.abs((index % 3) - (emptyIndex % 3));
+            return (rowDiff === 0 && colDiff === 1) || (rowDiff === 1 && colDiff === 0);
+        }
+
+        function swapTiles(index1, index2) {
+            const temp = numbers[index1];
+            numbers[index1] = numbers[index2];
+            numbers[index2] = temp;
+        }
+
+        function isPuzzleSolved() {
+            return numbers.every((number, index) => number === "" || number === index + 1);
+        }
+
+        function updatePuzzle() {
+            document.querySelectorAll(".puzzle-tile").forEach((tile, index) => {
+                tile.textContent = numbers[index] === "" ? "" : numbers[index];
+            });
+        }
+
+        function shufflePuzzle() {
+            for (let i = numbers.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+            }
+        }
+
+        shufflePuzzle();
+        createPuzzle();
+    </script>
+</body>
+</html>
