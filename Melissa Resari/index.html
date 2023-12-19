@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notebook Application</title>
+  <style>
+    body {
+      background-image: url("paper.jpg");
+      background-repeat: repeat;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      opacity: 0.9;
+      border-radius: 10px;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 10px;
+    }
+    
+    button {
+      display: block;
+      margin: 0 auto;
+    }
+    
+    .note {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+    
+    .note p {
+      margin: 0;
+    }
+    
+    .note button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Notebook Application</h1>
+    <textarea id="noteInput" placeholder="Write your notes here..."></textarea>
+    <button onclick="saveNote()">Save Note</button>
+    <div id="noteList"></div>
+  </div>
+
+  <script>
+    function saveNote() {
+      var noteInput = document.getElementById("noteInput");
+      var noteList = document.getElementById("noteList");
+      
+      var note = document.createElement("div");
+      note.className = "note";
+      
+      var noteText = document.createElement("p");
+      noteText.textContent = noteInput.value;
+      
+      var deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function() {
+        note.remove();
+      };
+      
+      note.appendChild(noteText);
+      note.appendChild(deleteButton);
+      noteList.appendChild(note);
+      
+      noteInput.value = "";
+    }
+  </script>
+</body>
+</html>
