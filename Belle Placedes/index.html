@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+    body{
+            text-align: center;
+            color: purple;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            background-image: url(image.jpg);
+        }
+
+        #taskInput {
+            margin-bottom: 10px;
+            width: 300px;
+            padding: 8px;
+            border: 2px solid magenta;
+        }
+
+        #taskList {
+            list-style: none;
+            padding: 0;
+        }
+
+        .taskItem {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 300px;
+            padding: 8px;
+            border: 2px solid magenta;
+            margin-bottom: 10px;
+        }
+
+        .taskItem button {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        #todo-container {
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+     .todo-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: transparent;
+      border: 2px solid magenta;
+    
+       }
+
+    .todo-item input[type="checkbox"] {
+      margin-right: 10px;
+      }
+</style>
+</head>
+<body>
+<h1>To-Do List for 24 hours</h1>
+<input type="text" id="taskInput" placeholder="Enter a task">
+<button onclick="addTask()">Add Task</button>
+<ul id="taskList"></ul>
+<script>
+function addTask() {
+const taskInput = document.getElementById('taskInput');
+const taskList = document.getElementById('taskList');
+
+if (taskInput.value.trim() === '') {
+alert('Please enter a task.');
+return;
+}
+
+const taskItem = document.createElement('li');
+taskItem.className = 'taskItem';
+
+const taskText = document.createTextNode(taskInput.value);
+taskItem.appendChild(taskText);
+
+const deleteButton = document.createElement('button');
+deleteButton.innerHTML = 'Delete';
+deleteButton.onclick = function() {
+taskList.removeChild(taskItem);
+};
+
+taskItem.appendChild(deleteButton);
+taskList.appendChild(taskItem);
+
+taskInput.value = '';
+}
+</script>
+<div id="todo-container">
+<div class="todo-item">
+<input type="checkbox">
+<span>*8 hours To Do 1: Wake up routine🛌</span>
+</div>
+<div class="todo-item">
+<input type="checkbox">
+<span>*30 min To Do 2: Eating routine🍜</span>
+</div>
+<div class="todo-item">
+<input type="checkbox">
+<span>*15 min To Do 3:Coding routine👩‍💻 </span>
+</div>
+<div class="todo-item">
+<input type="checkbox">
+<span>*2 hours To Do 4: Exercise routine⛹️‍♀️</span>
+</div>
+<div class="todo-item">
+<input type="checkbox">
+<span>*5 hours To Do 5: Cleaning routine🧹</span>
+</div>
+<div class="todo-item">
+<input type="checkbox">
+<span>*5 hours To Do 6: Self-care routine 🧖</span>
+</div>
+<div class="todo-item">
+<input type="checkbox">
+<span>*Remining time To Do 7: Relax and Rest⏰</span>
+</div>
+
+</body>
+</html>
