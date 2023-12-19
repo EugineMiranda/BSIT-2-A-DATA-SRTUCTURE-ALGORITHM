@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multi-Step Login Form</title>
+    <style>
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            margin: 0;
+            border-radius:10px
+           
+           
+        }
+        .container{
+        height:50px;
+        position:relative;
+        width:450px;
+        
+        }
+        .container img{
+        width:101.1%
+      
+        
+        }
+
+       
+        .login-form {
+           position: absolute;
+            top:150px;
+            left:25px;
+            right:50px;
+            height:400px;
+            width:275px;
+            background-color: black;
+            border-style:2px solid;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-color: red;
+            border-width: thick;
+            border-style: solid;
+            padding-bottom: 10px;
+            color:white  ;
+        }
+
+        .form-step {
+            display: none;
+            
+        }
+
+        .active {
+            display: block;
+        }
+    
+       
+        
+        .h2{
+       Text-allign: Center;
+        }
+    </style>
+</head>
+<body>
+     <div class="container">
+        
+        
+      
+          <div class="login-form" >
+             <div class="form-step active" id="step-1">
+             
+            <h1> Step 1 </h1>
+             <h1>Personal Information</h1> <br><br>
+             <label for=" Name"> Name:</label>
+            <input type="text " required> <br><br>
+            <label for=" NickName"> NickName</label>
+            <input type=" text" optional>
+            <br><br>
+            <input type="radio" name="gender">Male
+            <input type="radio" name="gender">Female<br> <br>
+            <label for=" Address"> Address: </label><br>
+            <select><br>
+            <option value="1">Baranggay</option>
+            <option value="2">bascaran</option>
+            <option value="3">kinawitan</option>
+            <option value="4">burgos</option>
+            <option value="5">Mabini</option>
+            </select>
+            <select >
+            <option value="1"> Municipality</option>
+            <option value="2">Daraga</option>
+            <option value="3">guinobatan</option>
+            <option value="4">malilipot</option>
+            <option value="5">bacacay</option>
+            </select>
+            <select for=" Address" Province:><br>
+            <option value="1">Province</option>
+            <option value="2">Albay</option>
+            <option value="3">Sorsogon</option>
+            <option value="4">Catanduanes</option>
+            <option value="5">Masbate</option>
+            </select>
+            
+            <br><br>
+            
+           <button onclick="nextStep(1)">Next</button>
+        </div>
+
+        <div class="form-step" id="step-2">
+            <h2>Step 2 - Enter Password</h2>
+            <input type="UserName" placeholder="Username" required>
+            <br><br>
+            <input type="password" placeholder="Password" required><br><br>
+            <button onclick="prevStep(1)">Previous</button>
+            <button onclick="nextStep(2)">Next</button>
+        </div>
+
+        <div class="form-step" id="step-3" >
+            <h1>Step 3 - Login</h1>
+            <button onclick="prevStep(2)">Previous</button>
+            <button type="submit">Login</button>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(step) {
+            document.getElementById(step-${step}).classList.remove('active');
+            document.getElementById(step-${step + 1}).classList.add('active');
+        }
+
+        function prevStep(step) {
+            document.getElementById(step-${step}).classList.remove('active');
+            document.getElementById(step-${step - 1}).classList.add('active');
+        }
+    </script>
+</body>
+</html>
