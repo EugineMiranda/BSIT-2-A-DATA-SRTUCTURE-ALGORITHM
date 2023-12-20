@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Game</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    #output {
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple HTML Game</h1>
+  <div id="output"></div>
+  <button onclick="startGame()">Start Game</button>
+
+  <script>
+    function startGame() {
+      const output = document.getElementById('output');
+      output.innerHTML = 'Welcome to the game!';
+
+      const choices = ['Rock', 'Paper', 'Scissors'];
+      const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+      const userChoice = prompt('Enter your choice: Rock, Paper, or Scissors');
+      output.innerHTML += '<br>Your choice: ' + userChoice;
+      output.innerHTML += '<br>Computer\'s choice: ' + computerChoice;
+
+      if (userChoice === computerChoice) {
+        output.innerHTML += '<br>It\'s a tie!';
+      } else if (
+        (userChoice === 'Rock' && computerChoice === 'Scissors') ||
+        (userChoice === 'Paper' && computerChoice === 'Rock') ||
+        (userChoice === 'Scissors' && computerChoice === 'Paper')
+      ) {
+        output.innerHTML += '<br>You win!';
+      } else {
+        output.innerHTML += '<br>You lose!';
+      }
+    }
+  </script>
+</body>
+</html>
