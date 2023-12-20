@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity(HANDS ON)</title>
+  <style>
+    body {
+      font-family: roboto;
+      background-image:url(giphy.gif) ;
+      
+      color: black;
+    }
+
+    
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    table {
+      float: left;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>PAY SLIP</h1>
+
+  <table >
+    <tr>
+      <th> Enter Name:</th>
+      <td><input type="text" id="name"></td>
+    </tr>
+    <tr>
+      <th>Enter Birthdate:</th>
+      <td><input type="date" id="birthdate"></td>
+    </tr>
+    <tr>
+      <th>Enter Age:</th>
+      <td><input type="text" id="age" disabled></td>
+    </tr>
+    <tr>
+      <th>Enter Status:</th>
+      <td><select id="status">
+        <option value="single">Single</option>
+        <option value="married">Married</option>
+      </select></td>
+    </tr>
+    <tr>
+      <th>Company Name:</th>
+      <td><input type="text" id="company_name"></td>
+    </tr>
+    <tr>
+      <th>Position:</th>
+      <td><input type="text" id="position"></td>
+    </tr>
+    <tr>
+       <th>Month:</th>
+      <td><input type="Month" id="Month"></td>
+    </tr>
+  
+      <th>Date:</th>
+      <td><input type="date" id="date"></td>
+    </tr>
+    <tr>
+      <th>No. of Hours Worked:</th>
+      <td><input type="number" id="hours_worked"></td>
+    </tr>
+    <tr>
+      <th>Salary Rate:</th>
+      <td><input type="number" id="salary_rate"></td>
+    </tr>
+    <tr>
+      <th>Total Salary:</th>
+      <td><input type="number" id="total_salary" disabled></td>
+    </tr>
+    <tr>
+      <th>Remarks:</th>
+      <td><input type="text" id="remarks" disabled></td>
+    </tr>
+  </table>
+
+  <button onclick="calculatePaySlip()">calculate</button>
+
+  <script>
+    function calculatePaySlip() {
+      const name = document.getElementById('name').value;
+      const birthdate = document.getElementById('birthdate').value;
+      const age = calculateAge(birthdate);
+      const status = document.getElementById('status').value;
+      const company_name = document.getElementById('company_name').value;
+      const position = document.getElementById('position').value;
+      const Month = document.getElementById('Month').value;
+      const date = document.getElementById('date').value;
+      const hours_worked = parseFloat(document.getElementById('hours_worked').value);
+      const salary_rate = parseFloat(document.getElementById('salary_rate').value);
+      const total_salary = hours_worked * salary_rate;
+      const remarks = calculateRemarks(total_salary);
+
+      document.getElementById('age').value = age;
+      document.getElementById('total_salary').value = total_salary;
+      document.getElementById('remarks').value = remarks;
+    }
+
+    function calculateAge(birthdate) {
+      const birthdateObject = new Date(birthdate);
+      const currentYear = new Date().getFullYear();
+      const age = currentYear - birthdateObject.getFullYear();
+
+      return age;
+    }
+
+    function calculateRemarks(total_salary) {
+      if (total_salary / hours_worked >= 70) {
+        remarks = "Excellent Work!";
+      } else if (total_salary / hours_worked >= 60) {
+        remarks = "Very Good";
+      } else if (total_salary / hours_worked >= 50) {
+        remarks = "Good Performance";
+      } else {
+        remarks = "Poor Performance";
+      }
+
+      return remarks;
+    }
+  </script>
+</body>
+</html>
