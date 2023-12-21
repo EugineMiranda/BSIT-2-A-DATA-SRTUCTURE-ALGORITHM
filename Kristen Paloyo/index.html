@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #F0F0F0;
+      font-family: Arial, sans-serif;
+    }
+
+    .puzzle-container {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      gap: 10px;
+    }
+
+    .puzzle-piece {
+      width: 100px;
+      height: 100px;
+      background-color: #6495ED;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+  <title>Number Puzzle Game</title>
+</head>
+<body>
+
+<div class="puzzle-container" id="puzzle-container"></div>
+
+<script>
+  const puzzleContainer = document.getElementById('puzzle-container');
+
+  // Create number array for puzzle
+  const numbers = Array.from({ length: 8 }, (_, index) => index + 1);
+  numbers.push(null); // Represents the empty space
+
+  // Shuffle the numbers
+  for (let i = numbers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+  }
+
+  // Populate puzzle container with puzzle pieces
+  numbers.forEach((number, index) => {
+    const puzzlePiece = document.createElement('div');
+    puzzlePiece.classList.add('puzzle-piece');
+    puzzlePiece.textContent = number;
+    puzzlePiece.addEventListener('click', () => handlePieceClick(index));
+    puzzleContainer.appendChild(puzzlePiece);
+  });
+
+  function handlePieceClick(index) {
+    const emptyIndex = numbers.indexOf(null);
+    if (isMoveValid(index, emptyIndex)) {
+      [numbers[index], numbers[emptyIndex]] = [numbers[emptyIndex], numbers[index]];
+      updatePuzzle();
+      if (isPuzzleSolved()) alert('Congratulations! You solved the puzzle!');
+    }
+  }
+
+  function isMoveValid(clickedIndex, emptyIndex) {
+    const clickedRow = Math.floor(clickedIndex / 3);
+    const clickedCol = clickedIndex % 3;
+    const emptyRow = Math.floor(emptyIndex / 3);
+    const emptyCol = emptyIndex % 3;
+
+    return (
+      (Math.abs(clickedRow - emptyRow) === 1 && clickedCol === emptyCol) ||
+      (Math.abs(clickedCol - emptyCol) === 1 && clickedRow === emptyRow)
+    );
+  }
+
+  function isPuzzleSolved() {
+    return numbers.every((number, index) => (index === numbers.length - 1 ? number === null : number === index + 1));
+  }
+
+  function updatePuzzle() {
+    const puzzlePieces = document.querySelectorAll('.puzzle-piece');
+    puzzlePieces.forEach((piece, index) => {
+      piece.textContent = numbers[index];
+    });
+  }
+</script>
+
+</body>
+</html>
