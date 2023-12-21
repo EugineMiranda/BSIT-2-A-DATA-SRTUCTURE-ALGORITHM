@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.game-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border: 5px solid #333;
+}
+
+#snake, #fruit {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+#snake {
+    background-color: #4CAF50;
+}
+
+#fruit {
+    background-color: #FF5733;
+}
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div id="snake"></div>
+        <div id="fruit"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const snakeElement = document.getElementById('snake');
+    const fruitElement = document.getElementById('fruit');
+
+    let snake = [{ x: 10, y: 10 }];
+    let fruit = { x: 5, y: 5 };
+    let direction = 'right';
+
+    function draw() {    
+        snake.forEach(segment => {
+            const snakeSegment = document.createElement('div');
+            snakeSegment.style.gridRowStart = segment.y;
+            snakeSegment.style.gridColumnStart = segment.x;
+            snakeSegment.classList.add('snake');
+            snakeElement.appendChild(snakeSegment);
+        });
+
+        fruitElement.style.gridRowStart = fruit.y;
+        fruitElement.style.gridColumnStart = fruit.x;
+        fruitElement.classList.add('fruit');
+    }
+
+    function clear() {
+        snakeElement.innerHTML = '';
+        fruitElement.classList.remove('fruit');
+    }
+
+    function move() {
+        const head = { ...snake[0] };
+
+        switch (direction) {
+            case 'up':
+                head.y--;
+                break;
+            case 'down':
+                head.y++;
+                break;
+            case 'left':
+                head.x--;
+                break;
+            case 'right':
+                head.x++;
+                break;
+        }
+
+        snake.unshift(head);
+
+        
+        if (head.x === fruit.x && head.y === fruit.y) {
+           
+            fruit = {
+                x: Math.floor(Math.random() * 20) + 1,
+                y: Math.floor(Math.random() * 20) + 1
+            };
+        } else {
+       
+            snake.pop();
+        }
+    }
+
+    function handleKeyPress(event) {
+        switch (event.key) {
+            case 'ArrowUp':
+                direction = 'up';
+                break;
+            case 'ArrowDown':
+                direction = 'down';
+                break;
+            case 'ArrowLeft':
+                direction = 'left';
+                break;
+            case 'ArrowRight':
+                direction = 'right';
+                break;
+        }
+    }
+
+    function gameLoop() {
+        clear();
+        move();
+        draw();
+    }
+
+    draw();
+    setInterval(gameLoop, 200);
+    
+    document.addEventListener('keydown', handleKeyPress);
+});
+    </script>
+</body>
+</html>
